@@ -1,10 +1,16 @@
 package net.callbells.commands;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.callbells.CallBells;
+import net.callbells.util.RegistryUtil;
 
 public class CommandBellUnregister extends Command {
 
@@ -20,6 +26,30 @@ public class CommandBellUnregister extends Command {
         if (!(sender instanceof Player player)) {
             sender.sendMessage("Only players can use this command!");
             return true;
+        }
+
+        // Check if the player is looking at a bell
+        if (player.getTargetBlockExact(5) == null || player.getTargetBlockExact(5).getType() != Material.BELL) {
+            player.sendMessage("You must be looking at a bell to register it!");
+            return true;
+        }
+
+        Location bellLocation = player.getTargetBlockExact(5).getLocation();
+
+        // Check if the bell is already registered
+        if (RegistryUtil.isBellRegistered(bellLocation)) {
+            // Bell is already registered
+            // Add player's UUID to the bell if not already added
+            List<UUID> bellOwners = RegistryUtil.getBellOwners(bellLocation);
+            UUID playerUUID = player.getUniqueId();
+
+            if (bellOwners.contains(playerUUID)) {
+                bellOwners.remove(playerUUID);
+                RegistryUtil.updateBellOwners(bellLocation, bellOwners);
+                player.sendMessage("You've succesfully unregistered from the bell '" + RegistryUtil.getBellName(bellLocation) + "'");
+            } else {
+                player.sendMessage("You aren't registered to that bell!");
+            }
         }
 
         return true;

@@ -35,7 +35,6 @@ public class CommandBellRegister extends Command {
             return true;
         }
 
-        // Get the bell's location as a string
         Location bellLocation = player.getTargetBlockExact(5).getLocation();
 
         if (!WorldGuardUtil.canBuildAtLocation(player, bellLocation)) {
@@ -74,5 +73,5 @@ public class CommandBellRegister extends Command {
 
         return true;
     }
-    
+
 }
