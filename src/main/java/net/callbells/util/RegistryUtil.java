@@ -3,6 +3,7 @@ package net.callbells.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,7 +54,11 @@ public class RegistryUtil {
     // Get the owners of a bell
     public static List<UUID> getBellOwners(Location bellLocation) {
         String ownersPath = "registered-bells." + locationToString(bellLocation) + ".owners";
-        return config.contains(ownersPath) ? config.getStringList(ownersPath).stream().map(UUID::fromString).toList() : new ArrayList<>();
+        List<String> ownersStringList = config.getStringList(ownersPath);
+        
+        // Convert the list to mutable
+        List<UUID> owners = new LinkedList<>(ownersStringList.stream().map(UUID::fromString).toList());
+        return owners;
     }
 
     // Update the owners of a bell
