@@ -5,3 +5,12 @@ description: A Minecraft Paper plugin that allows players to opt in for chat war
 author: Team Sneakymouse
 website: https://rawb.tv
 api-version: 1.19
+
+dependencies:
+  server:
+    WorldEdit:
+      load: BEFORE
+      required: false
+    WorldGuard:
+      load: BEFORE
+      required: false

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import net.callbells.CallBells;
 import net.callbells.util.RegistryUtil;
+import net.callbells.util.WorldGuardUtil;
 
 public class CommandBellRegister extends Command {
 
@@ -37,6 +38,11 @@ public class CommandBellRegister extends Command {
         // Get the bell's location as a string
         Location bellLocation = player.getTargetBlockExact(5).getLocation();
 
+        if (!WorldGuardUtil.canBuildAtLocation(player, bellLocation)) {
+            player.sendMessage("That is not your bell!");
+            return true;
+        }
+
         // Check if the bell is already registered
         if (RegistryUtil.isBellRegistered(bellLocation)) {
             // Bell is already registered
@@ -55,7 +61,7 @@ public class CommandBellRegister extends Command {
             // Bell is not registered
             // Check if a name is provided in the command
             if (args.length < 1) {
-                player.sendMessage("Please provide a name for the bell: /registerbell <name>");
+                player.sendMessage("Please provide a name for the bell: /bellregister <name>");
                 return true;
             }
 
