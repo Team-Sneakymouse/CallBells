@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import net.callbells.commands.CommandBellRegister;
 import net.callbells.util.RegistryUtil;
 
 public class BellListener implements Listener {
@@ -35,7 +36,7 @@ public class BellListener implements Listener {
         Block placedBlock = event.getBlockPlaced();
 
         // Check if the placed block is a Bell
-        if (placedBlock.getType() == Material.BELL) {
+        if (placedBlock.getType() == Material.BELL && event.getPlayer().hasPermission(CommandBellRegister.PERMISSION)) {
             // Remind the player of the "bellregister" command
             player.sendMessage("Don't forget to register this bell with /bellregister!");
             // You can add additional logic here if needed

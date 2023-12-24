@@ -15,11 +15,14 @@ import net.callbells.util.WorldGuardUtil;
 
 public class CommandBellRegister extends Command {
 
+    public static final String NAME = "bellregister";
+    public static final String PERMISSION = CallBells.IDENTIFIER + ".command." + NAME;
+
     public CommandBellRegister() {
-        super("bellregister");
+        super(NAME);
         this.description = "Register yourself to the bell that you're looking at.";
         this.usageMessage = "/registerbell (name of the bell)";
-        this.setPermission(CallBells.IDENTIFIER + ".command." + this.getName());
+        this.setPermission(PERMISSION);
     }
 
     @Override
