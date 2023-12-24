@@ -1,14 +1,15 @@
 package net.callbells.util;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import net.callbells.CallBells;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import net.callbells.CallBells;
 
 public class RegistryUtil {
 
@@ -26,43 +27,38 @@ public class RegistryUtil {
 
     // Example method to get registered bell locations
     public static List<String> getRegisteredBells() {
-        return config.getStringList("registered-bells");
+        return new ArrayList<>(config.getConfigurationSection("registered-bells").getKeys(false));
     }
 
     // Example method to register a bell location
-    public static void registerBell(String bellLocation, String bellName, UUID ownerUUID) {
-        List<String> registeredBells = config.getStringList("registered-bells");
-        registeredBells.add(bellLocation);
-        config.set("registered-bells", registeredBells);
+    public static void registerBell(Location bellLocation, String bellName, UUID ownerUUID) {
+        // Store the bell name
+        String namesPath = "registered-bells." + locationToString(bellLocation) + ".name";
+        config.set(namesPath, bellName);
 
         // Store the owner UUID for the bell
-        String ownersPath = "bell-owners." + bellLocation;
+        String ownersPath = "registered-bells." + locationToString(bellLocation) + ".owners";
         List<UUID> owners = getBellOwners(bellLocation);
         owners.add(ownerUUID);
         config.set(ownersPath, owners.stream().map(UUID::toString).toList());
-
-        // Store the bell name
-        String namesPath = "bell-names." + bellLocation;
-        config.set(namesPath, bellName);
 
         saveConfig();
     }
 
     // Check if a bell is already registered
-    public static boolean isBellRegistered(String bellLocation) {
-        List<String> registeredBells = config.getStringList("registered-bells");
-        return registeredBells.contains(bellLocation);
+    public static boolean isBellRegistered(Location bellLocation) {
+        return config.contains("registered-bells." + locationToString(bellLocation));
     }
 
     // Get the owners of a bell
-    public static List<UUID> getBellOwners(String bellLocation) {
-        String ownersPath = "bell-owners." + bellLocation;
+    public static List<UUID> getBellOwners(Location bellLocation) {
+        String ownersPath = "registered-bells." + locationToString(bellLocation) + ".owners";
         return config.contains(ownersPath) ? config.getStringList(ownersPath).stream().map(UUID::fromString).toList() : new ArrayList<>();
     }
 
     // Update the owners of a bell
-    public static void updateBellOwners(String bellLocation, List<UUID> owners) {
-        String ownersPath = "bell-owners." + bellLocation;
+    public static void updateBellOwners(Location bellLocation, List<UUID> owners) {
+        String ownersPath = "registered-bells." + locationToString(bellLocation) + ".owners";
         config.set(ownersPath, owners.stream().map(UUID::toString).toList());
         saveConfig();
     }
@@ -84,4 +80,15 @@ public class RegistryUtil {
             e.printStackTrace();
         }
     }
+
+    // Convert a Location to a compact string representation
+    private static String locationToString(Location location) {
+        return String.format("%s,%.0f,%.0f,%.0f,%.0f",
+                location.getWorld().getName(),
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw());
+    }
+    
 }

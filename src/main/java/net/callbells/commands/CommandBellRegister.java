@@ -3,6 +3,7 @@ package net.callbells.commands;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -34,7 +35,7 @@ public class CommandBellRegister extends Command {
         }
 
         // Get the bell's location as a string
-        String bellLocation = player.getTargetBlockExact(5).getLocation().toString();
+        Location bellLocation = player.getTargetBlockExact(5).getLocation();
 
         // Check if the bell is already registered
         if (RegistryUtil.isBellRegistered(bellLocation)) {
@@ -53,12 +54,12 @@ public class CommandBellRegister extends Command {
         } else {
             // Bell is not registered
             // Check if a name is provided in the command
-            if (args.length < 2) {
+            if (args.length < 1) {
                 player.sendMessage("Please provide a name for the bell: /registerbell <name>");
                 return true;
             }
 
-            String bellName = args[1];
+            String bellName = String.join(" ", args);
 
             // Register the bell with its name, location, and the player's UUID
             RegistryUtil.registerBell(bellLocation, bellName, player.getUniqueId());
