@@ -79,6 +79,8 @@ public class BellListener implements Listener {
 
     @EventHandler
     public void onBellPlace(BlockPlaceEvent event) {
+        if (event.isCancelled()) return;
+        
         Player player = event.getPlayer();
         Block placedBlock = event.getBlockPlaced();
 
@@ -92,6 +94,8 @@ public class BellListener implements Listener {
 
     @EventHandler
     public void onBellBreak(BlockBreakEvent event) {
+        if (event.isCancelled()) return;
+
         Player player = event.getPlayer();
         Block brokenBlock = event.getBlock();
 
