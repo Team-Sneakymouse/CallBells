@@ -68,6 +68,12 @@ public class RegistryUtil {
         saveConfig();
     }
 
+    // Example method to get the name of a registered bell
+    public static String getBellName(Location bellLocation) {
+        String namesPath = "registered-bells." + locationToString(bellLocation) + ".name";
+        return config.getString(namesPath);
+    }
+
     // Save the configuration to the file
     private static void saveConfig() {
         try {
@@ -94,6 +100,5 @@ public class RegistryUtil {
                 location.getY(),
                 location.getZ());
     }
-    
     
 }

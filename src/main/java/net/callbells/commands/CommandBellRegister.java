@@ -53,7 +53,7 @@ public class CommandBellRegister extends Command {
             if (!bellOwners.contains(playerUUID)) {
                 bellOwners.add(playerUUID);
                 RegistryUtil.updateBellOwners(bellLocation, bellOwners);
-                player.sendMessage("You've been added as an owner to the registered bell!");
+                player.sendMessage("You've succesfully registered to the bell '" + RegistryUtil.getBellName(bellLocation) + "'");
             } else {
                 player.sendMessage("You are already an owner of this bell!");
             }
@@ -74,4 +74,5 @@ public class CommandBellRegister extends Command {
 
         return true;
     }
+    
 }
