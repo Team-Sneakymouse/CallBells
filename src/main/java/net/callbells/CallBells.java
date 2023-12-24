@@ -1,6 +1,7 @@
 package net.callbells;
 
 import org.bukkit.Bukkit;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.callbells.commands.CommandBellRegister;
@@ -23,6 +24,9 @@ public class CallBells extends JavaPlugin {
         Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellUnregister());
 
         getServer().getPluginManager().registerEvents(new BellListener(), this);
+
+        getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".*"));
+        getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".command.*"));
     }
 
     public static CallBells getInstance() {

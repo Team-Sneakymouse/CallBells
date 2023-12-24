@@ -83,7 +83,7 @@ public class BellListener implements Listener {
         Block placedBlock = event.getBlockPlaced();
 
         // Check if the placed block is a Bell
-        if (placedBlock.getType() == Material.BELL && event.getPlayer().hasPermission(CommandBellRegister.PERMISSION)) {
+        if (placedBlock.getType() == Material.BELL && (event.getPlayer().hasPermission(CommandBellRegister.PERMISSION) || event.getPlayer().hasPermission(CallBells.IDENTIFIER + ".*") || event.getPlayer().hasPermission(CallBells.IDENTIFIER + ".command.*"))) {
             // Remind the player of the "bellregister" command
             player.sendMessage("Don't forget to register this bell with /bellregister!");
             // You can add additional logic here if needed
