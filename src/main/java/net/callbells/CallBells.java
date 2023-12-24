@@ -17,6 +17,8 @@ public class CallBells extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        saveDefaultConfig();
+
         Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellRegister());
         Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellUnregister());
 
