@@ -83,12 +83,12 @@ public class RegistryUtil {
 
     // Convert a Location to a compact string representation
     private static String locationToString(Location location) {
-        return String.format("%s,%.0f,%.0f,%.0f,%.0f",
+        return String.format("%s,%.0f,%.0f,%.0f",
                 location.getWorld().getName(),
                 location.getX(),
                 location.getY(),
-                location.getZ(),
-                location.getYaw());
+                location.getZ());
     }
+    
     
 }
