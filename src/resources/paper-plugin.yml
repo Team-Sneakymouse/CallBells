@@ -1,0 +1,7 @@
+name: CallBells
+version: 1.0.0
+main: net.callbells.CallBells
+description: A Minecraft Paper plugin that allows players to opt in for chat warnings when a specific bell gets rung
+author: Team Sneakymouse
+website: https://rawb.tv
+api-version: 1.19
