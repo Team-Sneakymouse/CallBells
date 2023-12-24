@@ -46,6 +46,15 @@ public class RegistryUtil {
         saveConfig();
     }
 
+    public static void removeBell(Location bellLocation) {
+        String bellPath = "registered-bells." + locationToString(bellLocation);
+        
+        if (config.contains(bellPath)) {
+            config.set(bellPath, null);
+            saveConfig();
+        }
+    }
+
     // Check if a bell is already registered
     public static boolean isBellRegistered(Location bellLocation) {
         return config.contains("registered-bells." + locationToString(bellLocation));
@@ -63,6 +72,11 @@ public class RegistryUtil {
 
     // Update the owners of a bell
     public static void updateBellOwners(Location bellLocation, List<UUID> owners) {
+        if (owners.isEmpty()) {
+            removeBell(bellLocation);
+            return;
+        }
+
         String ownersPath = "registered-bells." + locationToString(bellLocation) + ".owners";
         config.set(ownersPath, owners.stream().map(UUID::toString).toList());
         saveConfig();

@@ -50,9 +50,10 @@ public class CommandBellRegister extends Command {
             UUID playerUUID = player.getUniqueId();
 
             if (!bellOwners.contains(playerUUID)) {
+                String name = RegistryUtil.getBellName(bellLocation);
                 bellOwners.add(playerUUID);
                 RegistryUtil.updateBellOwners(bellLocation, bellOwners);
-                player.sendMessage("You've succesfully registered to the bell '" + RegistryUtil.getBellName(bellLocation) + "'");
+                player.sendMessage("You've succesfully registered to the bell '" + name + "'");
             } else {
                 player.sendMessage("You are already an owner of this bell!");
             }
