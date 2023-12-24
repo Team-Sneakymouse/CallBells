@@ -31,17 +31,6 @@ public class BellListener implements Listener {
 
         Player player = event.getPlayer();
 
-        // Check if the player is on cooldown
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long lastInteractTime = cooldowns.get(player.getUniqueId());
-            long currentTime = System.currentTimeMillis();
-            long cooldownTime = CallBells.getInstance().getConfig().getInt("bellCooldown") * 1000; // 30 seconds in milliseconds
-
-            if (currentTime - lastInteractTime < cooldownTime) {
-                return;
-            }
-        }
-
         // Check if it's a right-click event
         if (event.getAction().toString().contains("RIGHT")) {
             Block clickedBlock = event.getClickedBlock();
@@ -50,6 +39,17 @@ public class BellListener implements Listener {
             if (clickedBlock != null) {
                 Location loc = clickedBlock.getLocation();
                 if (clickedBlock.getType() == Material.BELL && RegistryUtil.isBellRegistered(loc)) {
+                    // Check if the player is on cooldown
+                    if (cooldowns.containsKey(player.getUniqueId())) {
+                        long lastInteractTime = cooldowns.get(player.getUniqueId());
+                        long currentTime = System.currentTimeMillis();
+                        long cooldownTime = CallBells.getInstance().getConfig().getInt("bellCooldown") * 1000; // 30 seconds in milliseconds
+
+                        if (currentTime - lastInteractTime < cooldownTime) {
+                            return;
+                        }
+                    }
+
                     String name = RegistryUtil.getBellName(loc);
                     boolean rung = false;
 
@@ -80,7 +80,7 @@ public class BellListener implements Listener {
     @EventHandler
     public void onBellPlace(BlockPlaceEvent event) {
         if (event.isCancelled()) return;
-        
+
         Player player = event.getPlayer();
         Block placedBlock = event.getBlockPlaced();
 
