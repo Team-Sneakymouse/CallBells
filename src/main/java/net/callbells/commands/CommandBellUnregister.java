@@ -45,9 +45,11 @@ public class CommandBellUnregister extends Command {
             UUID playerUUID = player.getUniqueId();
 
             if (bellOwners.contains(playerUUID)) {
+                String bellName = RegistryUtil.getBellName(bellLocation);
+
                 bellOwners.remove(playerUUID);
                 RegistryUtil.updateBellOwners(bellLocation, bellOwners);
-                player.sendMessage(ChatUtility.convertToComponent("&aYou've succesfully unregistered from the bell &b'" + RegistryUtil.getBellName(bellLocation) + "'"));
+                player.sendMessage(ChatUtility.convertToComponent("&aYou've succesfully unregistered from the bell &b'" + bellName + "'"));
             } else {
                 player.sendMessage(ChatUtility.convertToComponent("&aYou aren't registered to that bell!"));
             }
