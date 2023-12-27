@@ -1,5 +1,6 @@
 package net.callbells.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,6 +57,11 @@ public class CommandBellUnregister extends Command {
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args, Location location) {
+        return new ArrayList<>();
     }
 
 }
