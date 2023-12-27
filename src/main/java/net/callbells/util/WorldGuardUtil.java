@@ -27,8 +27,7 @@ public class WorldGuardUtil {
     }
 
     public static boolean canBuildAtLocation(Player player, org.bukkit.Location bukkitLocation) {
-        if (worldGuardPlugin == null) {
-            // WorldGuard is not running
+        if (worldGuardPlugin == null || player.isOp()) {
             return true;
         }
 
