@@ -19,8 +19,8 @@ public class ChatUtility {
         message = message.replace("&9", "<blue>");
         message = message.replace("&0", "<black>");
 
-        message = message.replace("&e", "<green>");
-        message = message.replace("&3", "<aqua>");
+        message = message.replace("&a", "<green>");
+        message = message.replace("&b", "<aqua>");
         message = message.replace("&c", "<red>");
         message = message.replace("&d", "<light_purple>");
         message = message.replace("&e", "<yellow>");
