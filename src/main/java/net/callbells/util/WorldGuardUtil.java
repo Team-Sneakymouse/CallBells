@@ -27,7 +27,7 @@ public class WorldGuardUtil {
     }
 
     public static boolean canBuildAtLocation(Player player, org.bukkit.Location bukkitLocation) {
-        if (worldGuardPlugin == null || player.isOp()) {
+        if (worldGuardPlugin == null || player.isOp() || player.hasPermission("worldguard.bypass") || player.hasPermission("worldguard.*")) {
             return true;
         }
 
