@@ -57,17 +57,17 @@ public class BellListener implements Listener {
                     for (UUID uuid : RegistryUtil.getBellOwners(loc)) {
                         Player pl = Bukkit.getPlayer(uuid);
                         if (pl != null && pl.isOnline()) {
-                            pl.sendMessage(ChatUtility.convertToComponent("&aYour bell &b'" + name + "'&a has been rung by &b" + player.getName()));
+                            pl.sendMessage(ChatUtility.convertToComponent("&eYour bell &3'" + name + "'&e has been rung by &3" + player.getName()));
                             pl.playSound(pl.getLocation(), Sound.BLOCK_BELL_USE, 9999.0f, 1.5f);
                             rung = true;
                         }
                     }
 
                     if (rung) {
-                        player.sendMessage(ChatUtility.convertToComponent("&aThe bell rung true! Somebody must have heard that."));
+                        player.sendMessage(ChatUtility.convertToComponent("&eThe bell rung true! Somebody must have heard that."));
                         player.playSound(player.getLocation(), Sound.BLOCK_BELL_RESONATE, 9999.0f, 1.0f);
                     } else {
-                        player.sendMessage(ChatUtility.convertToComponent("&aThe bell made a dull, muffled sound."));
+                        player.sendMessage(ChatUtility.convertToComponent("&eThe bell made a dull, muffled sound."));
                         player.playSound(player.getLocation(), Sound.BLOCK_BELL_USE, 9999.0f, 0.5f);
                     }
 
@@ -88,7 +88,7 @@ public class BellListener implements Listener {
         // Check if the placed block is a Bell
         if (placedBlock.getType() == Material.BELL && (player.isOp() || player.hasPermission(CommandBellRegister.PERMISSION) || player.hasPermission(CallBells.IDENTIFIER + ".*") || player.hasPermission(CallBells.IDENTIFIER + ".command.*"))) {
             // Remind the player of the "bellregister" command
-            player.sendMessage(ChatUtility.convertToComponent("&aDon't forget to register this bell with /bellregister!"));
+            player.sendMessage(ChatUtility.convertToComponent("&eDon't forget to register this bell with /bellregister!"));
             // You can add additional logic here if needed
         }
     }
@@ -104,7 +104,7 @@ public class BellListener implements Listener {
         if (brokenBlock.getType() == Material.BELL) {
             // Check if the bell is registered
             if (RegistryUtil.isBellRegistered(brokenBlock.getLocation())) {
-                player.sendMessage(ChatUtility.convertToComponent("&aYou broke a registered bell! It has been removed from the registry."));
+                player.sendMessage(ChatUtility.convertToComponent("&eYou broke a registered bell! It has been removed from the registry."));
                 // Remove the bell from the registry
                 RegistryUtil.removeBell(brokenBlock.getLocation());
             }

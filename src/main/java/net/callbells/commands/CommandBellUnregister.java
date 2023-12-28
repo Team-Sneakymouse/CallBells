@@ -32,7 +32,7 @@ public class CommandBellUnregister extends Command {
 
         // Check if the player is looking at a bell
         if (player.getTargetBlockExact(5) == null || player.getTargetBlockExact(5).getType() != Material.BELL) {
-            player.sendMessage(ChatUtility.convertToComponent("&aYou must be looking at a bell to register it!"));
+            player.sendMessage(ChatUtility.convertToComponent("&eYou must be looking at a bell to register it!"));
             return true;
         }
 
@@ -50,9 +50,9 @@ public class CommandBellUnregister extends Command {
 
                 bellOwners.remove(playerUUID);
                 RegistryUtil.updateBellOwners(bellLocation, bellOwners);
-                player.sendMessage(ChatUtility.convertToComponent("&aYou've succesfully unregistered from the bell &b'" + bellName + "'"));
+                player.sendMessage(ChatUtility.convertToComponent("&eYou've succesfully unregistered from the bell &3'" + bellName + "'"));
             } else {
-                player.sendMessage(ChatUtility.convertToComponent("&aYou aren't registered to that bell!"));
+                player.sendMessage(ChatUtility.convertToComponent("&eYou aren't registered to that bell!"));
             }
         }
 
