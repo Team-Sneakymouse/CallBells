@@ -70,7 +70,7 @@ public class CommandBellRegister extends Command {
                 return true;
             }
 
-            String bellName = String.join(" ", args);
+            String bellName = String.join("_", args);
 
             // Register the bell with its name, location, and the player's UUID
             RegistryUtil.registerBell(bellLocation, bellName, player.getUniqueId());

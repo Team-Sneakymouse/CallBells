@@ -57,18 +57,15 @@ public class BellListener implements Listener {
                     for (UUID uuid : RegistryUtil.getBellOwners(loc)) {
                         Player pl = Bukkit.getPlayer(uuid);
                         if (pl != null && pl.isOnline()) {
-                            pl.sendMessage(ChatUtility.convertToComponent("&eYour bell &3'" + name + "'&e has been rung by &3" + player.getName()));
-                            pl.playSound(pl.getLocation(), Sound.BLOCK_BELL_USE, 9999.0f, 1.5f);
+                            Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "cast forcecast " + pl.getName() + " bell-rung " + name + " " + player.getName());
                             rung = true;
                         }
                     }
 
                     if (rung) {
-                        player.sendMessage(ChatUtility.convertToComponent("&eThe bell rung true! Somebody must have heard that."));
-                        player.playSound(player.getLocation(), Sound.BLOCK_BELL_RESONATE, 9999.0f, 1.0f);
+                        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "cast forcecast " + player.getName() + " bell-ring-success " + name);
                     } else {
-                        player.sendMessage(ChatUtility.convertToComponent("&eThe bell made a dull, muffled sound."));
-                        player.playSound(player.getLocation(), Sound.BLOCK_BELL_USE, 9999.0f, 0.5f);
+                        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "cast forcecast " + player.getName() + " bell-ring-failure " + name);
                     }
 
                     // Set the cooldown
