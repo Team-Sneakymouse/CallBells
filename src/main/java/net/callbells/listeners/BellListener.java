@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Bell;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +29,7 @@ public class BellListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.useInteractedBlock().equals(Result.DENY)) return;
+        //if (event.useInteractedBlock().equals(Result.DENY)) return;
 
         Player player = event.getPlayer();
 
@@ -40,6 +41,8 @@ public class BellListener implements Listener {
             if (clickedBlock != null) {
                 Location loc = clickedBlock.getLocation();
                 if (clickedBlock.getType() == Material.BELL && RegistryUtil.isBellRegistered(loc)) {
+                    if (event.useInteractedBlock().equals(Result.DENY)) ((Bell) clickedBlock).ring();
+
                     // Check if the player is on cooldown
                     if (cooldowns.containsKey(player.getUniqueId())) {
                         long lastInteractTime = cooldowns.get(player.getUniqueId());
