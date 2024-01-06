@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Bell;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -41,7 +40,7 @@ public class BellListener implements Listener {
             if (clickedBlock != null) {
                 Location loc = clickedBlock.getLocation();
                 if (clickedBlock.getType() == Material.BELL && RegistryUtil.isBellRegistered(loc)) {
-                    if (event.useInteractedBlock().equals(Result.DENY)) ((Bell) clickedBlock).ring();
+                    if (event.useInteractedBlock().equals(Result.DENY)) ((Bell) clickedBlock.getState()).ring();
 
                     // Check if the player is on cooldown
                     if (cooldowns.containsKey(player.getUniqueId())) {
