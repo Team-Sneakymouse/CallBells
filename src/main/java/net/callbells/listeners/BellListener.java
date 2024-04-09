@@ -66,12 +66,11 @@ public class BellListener implements Listener {
 
                     if (rung) {
                         Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "cast forcecast " + player.getName() + " bell-ring-success " + name);
+                        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
                     } else {
                         Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "cast forcecast " + player.getName() + " bell-ring-failure " + name);
                     }
 
-                    // Set the cooldown
-                    cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
                 }
             }
         }
