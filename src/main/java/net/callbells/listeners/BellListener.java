@@ -79,15 +79,15 @@ public class BellListener implements Listener {
 					if (rung) {
 						if (atKeyboard) {
 							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-									"cast forcecast " + player.getName() + " bell-ring-success " + name);
+									"cast forcecast " + player.getName() + " bell-ring-success " + name.replace("_", "\u00A0"));
 						} else {
 							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-									"cast forcecast " + player.getName() + " bell-ring-successAFK " + name);
+									"cast forcecast " + player.getName() + " bell-ring-successAFK " + name.replace("_", "\u00A0"));
 						}
 						cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
 					} else {
 						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-								"cast forcecast " + player.getName() + " bell-ring-failure " + name);
+								"cast forcecast " + player.getName() + " bell-ring-failure " + name.replace("_", "\u00A0"));
 					}
 
 				}
