@@ -1,15 +1,19 @@
 plugins {
     id("java")
-    id("io.papermc.paperweight.userdev") version "1.5.10"
 }
 
 repositories {
     mavenCentral()
+	maven("https://repo.papermc.io/repository/maven-public/")
+	maven {
+        url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    }
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.20.2-R0.1-SNAPSHOT")
-    implementation(fileTree("libs") {
+    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+	compileOnly("me.clip:placeholderapi:2.11.5")
+	implementation(fileTree("libs") {
         include("*.jar")
     })
 }

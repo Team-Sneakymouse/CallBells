@@ -10,9 +10,11 @@ import net.callbells.listeners.BellListener;
 
 public class CallBells extends JavaPlugin {
 
+	public static final String IDENTIFIER = "callbells";
+
 	private static CallBells instance;
 
-	public static final String IDENTIFIER = "callbells";
+	public boolean papiActive = false;
 
 	@Override
 	public void onEnable() {
@@ -27,6 +29,11 @@ public class CallBells extends JavaPlugin {
 
 		getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".*"));
 		getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".command.*"));
+
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+			papiActive = true;
+		}
+
 	}
 
 	public static CallBells getInstance() {

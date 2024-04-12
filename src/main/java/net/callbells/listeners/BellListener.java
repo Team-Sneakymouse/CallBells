@@ -22,6 +22,8 @@ import net.callbells.commands.CommandBellRegister;
 import net.callbells.util.ChatUtility;
 import net.callbells.util.RegistryUtil;
 
+import me.clip.placeholderapi.PlaceholderAPI;
+
 public class BellListener implements Listener {
 
 	private final Map<UUID, Long> cooldowns = new HashMap<>();
@@ -47,10 +49,7 @@ public class BellListener implements Listener {
 					if (cooldowns.containsKey(player.getUniqueId())) {
 						long lastInteractTime = cooldowns.get(player.getUniqueId());
 						long currentTime = System.currentTimeMillis();
-						long cooldownTime = CallBells.getInstance().getConfig().getInt("bellCooldown") * 1000; // 30
-																												// seconds
-																												// in
-																												// milliseconds
+						long cooldownTime = CallBells.getInstance().getConfig().getInt("bellCooldown") * 1000;
 
 						if (currentTime - lastInteractTime < cooldownTime) {
 							return;
@@ -59,6 +58,7 @@ public class BellListener implements Listener {
 
 					String name = RegistryUtil.getBellName(loc);
 					boolean rung = false;
+					boolean atKeyboard = false;
 
 					for (UUID uuid : RegistryUtil.getBellOwners(loc)) {
 						Player pl = Bukkit.getPlayer(uuid);
@@ -66,12 +66,24 @@ public class BellListener implements Listener {
 							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
 									"cast forcecast " + pl.getName() + " bell-rung " + name + " " + player.getName());
 							rung = true;
+
+							if (CallBells.getInstance().papiActive
+									&& PlaceholderAPI.setPlaceholders(pl, "%cmi_user_afk%") != null
+									&& PlaceholderAPI.setPlaceholders(pl, "%cmi_user_afk%").equals("§6True")) {
+								continue;
+							}
+							atKeyboard = true;
 						}
 					}
 
 					if (rung) {
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-								"cast forcecast " + player.getName() + " bell-ring-success " + name);
+						if (atKeyboard) {
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
+									"cast forcecast " + player.getName() + " bell-ring-success " + name);
+						} else {
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
+									"cast forcecast " + player.getName() + " bell-ring-successAFK " + name);
+						}
 						cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
 					} else {
 						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
@@ -99,7 +111,6 @@ public class BellListener implements Listener {
 			// Remind the player of the "bellregister" command
 			player.sendMessage(
 					ChatUtility.convertToComponent("&eDon't forget to register this bell with /bellregister!"));
-			// You can add additional logic here if needed
 		}
 	}
 
