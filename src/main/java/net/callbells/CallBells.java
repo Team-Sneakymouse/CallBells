@@ -10,27 +10,27 @@ import net.callbells.listeners.BellListener;
 
 public class CallBells extends JavaPlugin {
 
-    private static CallBells instance;
+	private static CallBells instance;
 
-    public static final String IDENTIFIER = "callbells";
+	public static final String IDENTIFIER = "callbells";
 
-    @Override
-    public void onEnable() {
-        instance = this;
+	@Override
+	public void onEnable() {
+		instance = this;
 
-        saveDefaultConfig();
+		saveDefaultConfig();
 
-        Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellRegister());
-        Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellUnregister());
+		Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellRegister());
+		Bukkit.getCommandMap().register(IDENTIFIER, new CommandBellUnregister());
 
-        getServer().getPluginManager().registerEvents(new BellListener(), this);
+		getServer().getPluginManager().registerEvents(new BellListener(), this);
 
-        getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".*"));
-        getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".command.*"));
-    }
+		getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".*"));
+		getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".command.*"));
+	}
 
-    public static CallBells getInstance() {
-        return instance;
-    }
+	public static CallBells getInstance() {
+		return instance;
+	}
 
 }
