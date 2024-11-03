@@ -113,7 +113,7 @@ public class BellListener implements Listener {
 					ChatUtility.convertToComponent("&eDon't forget to register this bell with /bellregister!"));
 		}
 	}
-
+	/*
 	@EventHandler
 	public void onBellBreak(BlockBreakEvent event) {
 		if (event.isCancelled())
@@ -133,5 +133,6 @@ public class BellListener implements Listener {
 			}
 		}
 	}
+	*/
 
 }
