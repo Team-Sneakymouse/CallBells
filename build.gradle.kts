@@ -27,14 +27,24 @@ repositories {
     maven {
         url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.5")
-    implementation(fileTree("libs") {
-        include("*.jar")
-    })
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.17") {
+        isTransitive = false
+    }
+    compileOnly("com.sk89q.worldedit:worldedit-core:7.2.17") {
+        isTransitive = false
+    }
+    compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.9") {
+        isTransitive = false
+    }
+    compileOnly("com.sk89q.worldguard:worldguard-core:7.0.9") {
+        isTransitive = false
+    }
 }
 
 java {
