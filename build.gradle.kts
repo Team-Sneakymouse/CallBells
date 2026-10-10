@@ -44,7 +44,7 @@ java {
     withSourcesJar()
 }
 
-configure<JavaPluginConvention> {
+configure<JavaPluginExtension> {
     sourceSets {
         main {
             resources.srcDir(file("src/resources"))
