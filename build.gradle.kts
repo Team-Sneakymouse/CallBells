@@ -89,6 +89,7 @@ publishing {
                     "Paper plugin for chat warnings when registered bells are rung."
                 )
                 url.set("https://github.com/Team-Sneakymouse/CallBells")
+                properties.put("sneakyrp.deployment.type", "paper-plugin")
                 licenses {
                     license {
                         name.set("GNU General Public License v3.0")
