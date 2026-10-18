@@ -11,8 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.callbells.CallBells;
-import net.callbells.util.ChatUtility;
 import net.callbells.util.RegistryUtil;
+
+import com.sneakyutils.util.TextUtility;
 
 public class CommandBellUnregister extends Command {
 
@@ -32,7 +33,7 @@ public class CommandBellUnregister extends Command {
 
 		// Check if the player is looking at a bell
 		if (player.getTargetBlockExact(5) == null || player.getTargetBlockExact(5).getType() != Material.BELL) {
-			player.sendMessage(ChatUtility.convertToComponent("&eYou must be looking at a bell to register it!"));
+			player.sendMessage(TextUtility.INSTANCE.convertToComponent("&eYou must be looking at a bell to register it!"));
 			return true;
 		}
 
@@ -50,10 +51,10 @@ public class CommandBellUnregister extends Command {
 
 				bellOwners.remove(playerUUID);
 				RegistryUtil.updateBellOwners(bellLocation, bellOwners);
-				player.sendMessage(ChatUtility
+				player.sendMessage(TextUtility.INSTANCE
 						.convertToComponent("&eYou've succesfully unregistered from the bell &3'" + bellName + "'"));
 			} else {
-				player.sendMessage(ChatUtility.convertToComponent("&eYou aren't registered to that bell!"));
+				player.sendMessage(TextUtility.INSTANCE.convertToComponent("&eYou aren't registered to that bell!"));
 			}
 		}
 

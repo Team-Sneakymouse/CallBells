@@ -8,6 +8,10 @@ api-version: 1.19
 
 dependencies:
   server:
+    SneakyUtils:
+      load: BEFORE
+      required: true
+      join-classpath: true
     WorldEdit:
       load: BEFORE
       required: false

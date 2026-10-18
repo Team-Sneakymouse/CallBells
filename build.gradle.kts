@@ -24,6 +24,7 @@ version =
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://maven.sneakyrp.com/releases")
     maven {
         url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
@@ -32,6 +33,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("io.github.team-sneakymouse:sneakyutils:2026.10.18-4b5831b0b997")
     compileOnly("me.clip:placeholderapi:2.11.5")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.17") {
         isTransitive = false
@@ -49,7 +51,7 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
     withSourcesJar()
 }

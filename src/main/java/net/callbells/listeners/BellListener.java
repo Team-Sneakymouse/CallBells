@@ -19,8 +19,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import net.callbells.CallBells;
 import net.callbells.commands.CommandBellRegister;
-import net.callbells.util.ChatUtility;
 import net.callbells.util.RegistryUtil;
+
+import com.sneakyutils.util.TextUtility;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 
@@ -110,7 +111,7 @@ public class BellListener implements Listener {
 						|| player.hasPermission(CallBells.IDENTIFIER + ".command.*"))) {
 			// Remind the player of the "bellregister" command
 			player.sendMessage(
-					ChatUtility.convertToComponent("&eDon't forget to register this bell with /bellregister!"));
+					TextUtility.INSTANCE.convertToComponent("&eDon't forget to register this bell with /bellregister!"));
 		}
 	}
 	/*
@@ -126,7 +127,7 @@ public class BellListener implements Listener {
 		if (brokenBlock.getType() == Material.BELL) {
 			// Check if the bell is registered
 			if (RegistryUtil.isBellRegistered(brokenBlock.getLocation())) {
-				player.sendMessage(ChatUtility
+				player.sendMessage(TextUtility.INSTANCE
 						.convertToComponent("&eYou broke a registered bell! It has been removed from the registry."));
 				// Remove the bell from the registry
 				RegistryUtil.removeBell(brokenBlock.getLocation());

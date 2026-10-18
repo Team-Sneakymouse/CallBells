@@ -11,9 +11,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.callbells.CallBells;
-import net.callbells.util.ChatUtility;
 import net.callbells.util.RegistryUtil;
 import net.callbells.util.WorldGuardUtil;
+
+import com.sneakyutils.util.TextUtility;
 
 public class CommandBellRegister extends Command {
 
@@ -36,14 +37,14 @@ public class CommandBellRegister extends Command {
 
 		// Check if the player is looking at a bell
 		if (player.getTargetBlockExact(5) == null || player.getTargetBlockExact(5).getType() != Material.BELL) {
-			player.sendMessage(ChatUtility.convertToComponent("&eYou must be looking at a bell to register it!"));
+			player.sendMessage(TextUtility.INSTANCE.convertToComponent("&eYou must be looking at a bell to register it!"));
 			return true;
 		}
 
 		Location bellLocation = player.getTargetBlockExact(5).getLocation();
 
 		if (!WorldGuardUtil.canBuildAtLocation(player, bellLocation)) {
-			player.sendMessage(ChatUtility.convertToComponent("&eThat is not your bell!"));
+			player.sendMessage(TextUtility.INSTANCE.convertToComponent("&eThat is not your bell!"));
 			return true;
 		}
 
@@ -59,16 +60,16 @@ public class CommandBellRegister extends Command {
 				bellOwners.add(playerUUID);
 				RegistryUtil.updateBellOwners(bellLocation, bellOwners);
 				player.sendMessage(
-						ChatUtility.convertToComponent("&eYou've succesfully registered to the bell '" + name + "'"));
+						TextUtility.INSTANCE.convertToComponent("&eYou've succesfully registered to the bell '" + name + "'"));
 			} else {
-				player.sendMessage(ChatUtility.convertToComponent("&eYou are already an owner of this bell!"));
+				player.sendMessage(TextUtility.INSTANCE.convertToComponent("&eYou are already an owner of this bell!"));
 			}
 		} else {
 			// Bell is not registered
 			// Check if a name is provided in the command
 			if (args.length < 1) {
 				player.sendMessage(
-						ChatUtility.convertToComponent("&ePlease provide a name for the bell: /bellregister <name>"));
+						TextUtility.INSTANCE.convertToComponent("&ePlease provide a name for the bell: /bellregister <name>"));
 				return true;
 			}
 
@@ -76,7 +77,7 @@ public class CommandBellRegister extends Command {
 
 			// Register the bell with its name, location, and the player's UUID
 			RegistryUtil.registerBell(bellLocation, bellName, player.getUniqueId());
-			player.sendMessage(ChatUtility.convertToComponent("&eBell &3'" + bellName + "'&e registered!"));
+			player.sendMessage(TextUtility.INSTANCE.convertToComponent("&eBell &3'" + bellName + "'&e registered!"));
 		}
 
 		return true;
