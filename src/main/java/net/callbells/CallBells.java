@@ -14,8 +14,6 @@ public class CallBells extends JavaPlugin {
 
 	private static CallBells instance;
 
-	public boolean papiActive = false;
-
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -29,11 +27,6 @@ public class CallBells extends JavaPlugin {
 
 		getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".*"));
 		getServer().getPluginManager().addPermission(new Permission(IDENTIFIER + ".command.*"));
-
-		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-			papiActive = true;
-		}
-
 	}
 
 	public static CallBells getInstance() {

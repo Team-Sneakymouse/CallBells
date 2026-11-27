@@ -1,1 +1,47 @@
+# Seconds a player waits after a ring someone heard before their next ring notifies anyone.
 bellCooldown: 30
+
+# What players see and hear when a registered bell is rung, per outcome.
+#   message:   legacy & codes or MiniMessage. <bell> is the bell's name, <ringer> the ringer's character name.
+#              Leave empty for no message.
+#   sound:     played only to that player, at their position. key, volume, pitch, delay (ticks).
+#   animation: the font's glyphs U+E000, U+E001, ... shown as the subtitle (as MagicSpells' fontanimation drew them).
+#              font, duration (ticks), start-frame, interval (ticks per frame), delay (ticks).
+feedback:
+  # To each online owner, when someone rings their bell.
+  rung:
+    message: "&eYour bell &3'<bell>'&e has been rung by &3'<ringer>'&e."
+    sound:
+      key: "lom:beckoningbell"
+      volume: 999
+      pitch: 1.0
+      delay: 5
+    animation:
+      font: "lom:bellanimation"
+      duration: 35
+      start-frame: 0
+      interval: 1
+
+  # To the ringer, when an owner who isn't AFK heard it.
+  success:
+    message: "&eThe bell &3'<bell>'&e rung true!\n&aSomebody must have heard that."
+    sound:
+      key: "minecraft:block.bell.resonate"
+      volume: 999
+      pitch: 1.0
+
+  # To the ringer, when owners are online but all of them are AFK.
+  success-afk:
+    message: "&eThe bell &3'<bell>'&e rung faintly.\n&6The residents might be sleeping?"
+    sound:
+      key: "minecraft:block.bell.resonate"
+      volume: 999
+      pitch: 0.5
+
+  # To the ringer, when no owner is online.
+  failure:
+    message: "&eThe bell &3'<bell>'&e made a dull, muffled sound.\n&4You don't think that anyone heard that."
+    sound:
+      key: "minecraft:block.anvil.break"
+      volume: 999
+      pitch: 0.5

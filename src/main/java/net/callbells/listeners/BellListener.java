@@ -19,13 +19,16 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import net.callbells.CallBells;
 import net.callbells.commands.CommandBellRegister;
+import net.callbells.util.BellFeedback;
 import net.callbells.util.RegistryUtil;
 
+import com.sneakyutils.util.PlaceholderUtil;
 import com.sneakyutils.util.TextUtility;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-
 public class BellListener implements Listener {
+
+	private static final String AFK_PLACEHOLDER = "%cmi_user_afk%";
+	private static final String AFK_TRUE = "\u00A76True";
 
 	private final Map<UUID, Long> cooldowns = new HashMap<>();
 
@@ -64,13 +67,10 @@ public class BellListener implements Listener {
 					for (UUID uuid : RegistryUtil.getBellOwners(loc)) {
 						Player pl = Bukkit.getPlayer(uuid);
 						if (pl != null && pl.isOnline()) {
-							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-									"cast forcecast " + pl.getName() + " bell-rung " + name + " " + player.getName());
+							BellFeedback.play(pl, BellFeedback.RUNG, name, player);
 							rung = true;
 
-							if (CallBells.getInstance().papiActive
-									&& PlaceholderAPI.setPlaceholders(pl, "%cmi_user_afk%") != null
-									&& PlaceholderAPI.setPlaceholders(pl, "%cmi_user_afk%").equals("§6True")) {
+							if (AFK_TRUE.equals(PlaceholderUtil.setPlaceholders(pl, AFK_PLACEHOLDER))) {
 								continue;
 							}
 							atKeyboard = true;
@@ -78,17 +78,10 @@ public class BellListener implements Listener {
 					}
 
 					if (rung) {
-						if (atKeyboard) {
-							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-									"cast forcecast " + player.getName() + " bell-ring-success " + name.replace("_", "\u00A0"));
-						} else {
-							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-									"cast forcecast " + player.getName() + " bell-ring-successAFK " + name.replace("_", "\u00A0"));
-						}
+						BellFeedback.play(player, atKeyboard ? BellFeedback.SUCCESS : BellFeedback.SUCCESS_AFK, name, player);
 						cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
 					} else {
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-								"cast forcecast " + player.getName() + " bell-ring-failure " + name.replace("_", "\u00A0"));
+						BellFeedback.play(player, BellFeedback.FAILURE, name, player);
 					}
 
 				}
