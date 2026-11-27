@@ -30,7 +30,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    compileOnly("io.github.team-sneakymouse:sneakyutils:2026.10.18-657d452bd6f4")
+    compileOnly("io.github.team-sneakymouse:sneakyutils:2026.11.27-47a327edbcf1")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.17") {
         isTransitive = false
     }
